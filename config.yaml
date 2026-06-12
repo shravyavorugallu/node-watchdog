@@ -1,0 +1,28 @@
+cluster:
+  name: hpc-prod-01
+  nodes:
+    - head01
+    - node01
+    - node02
+    - node03
+    - node04
+
+check:
+  interval:   30s
+  timeout:    5s
+  fail_count: 3
+  http_port:  9100
+
+drain:
+  enabled:       true
+  slurm_bin_path: /usr/bin
+  drain_reason:  "node-watchdog: health check failed"
+  wait_drain:    2m
+
+notify:
+  slack_webhook: "${SLACK_WEBHOOK_URL}"
+  channel:       "#infra-alerts-critical"
+
+metrics:
+  port: 9201
+  path: /metrics
