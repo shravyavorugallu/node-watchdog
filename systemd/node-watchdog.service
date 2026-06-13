@@ -1,0 +1,13 @@
+[Unit]
+Description=Node Watchdog - HPC cluster health monitor and auto-drain
+After=network.target
+
+[Service]
+User=clusteradmin
+ExecStart=/usr/local/bin/node-watchdog --config /etc/node-watchdog/config.yaml
+Restart=on-failure
+RestartSec=15s
+Environment=SLACK_WEBHOOK_URL=https://hooks.slack.com/...
+
+[Install]
+WantedBy=multi-user.target
